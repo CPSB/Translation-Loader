@@ -35,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\TranslationLoader\\": "src"
+            "ActivismeBe\\TranslationLoader\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\TranslationLoader\\Test\\": "tests"
+            "ActivismeBe\\TranslationLoader\\Test\\": "tests"
         }
     },
     "scripts": {
@@ -52,7 +52,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\TranslationLoader\\TranslationServiceProvider"
+                "ActivismeBe\\TranslationLoader\\TranslationServiceProvider"
             ]
         }
     }
