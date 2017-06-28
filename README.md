@@ -33,7 +33,7 @@ All postcards are published [on our website](https://spatie.be/en/opensource/pos
 You can install the package via composer:
 
 ``` bash
-composer require spatie/laravel-translation-loader
+composer require activismebe/laravel-translation-loader
 ```
 
 In `config/app.php` you should replace Laravel's translation service provider
@@ -45,20 +45,20 @@ Illuminate\Translation\TranslationServiceProvider::class,
 by the one included in this package:
 
 ```php
-Spatie\TranslationLoader\TranslationServiceProvider::class,
+ActivismeBE\TranslationLoader\TranslationServiceProvider::class,
 ```
 
 You must publish and run the migrations to create the `language_lines` table:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="ActivismeBe\TranslationLoader\TranslationServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
 Optionally you could publish the config file using this command.
 
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="ActivismeBe\TranslationLoader\TranslationServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
@@ -71,14 +71,14 @@ return [
      * the Spatie\TranslationLoader\TranslationLoaders\TranslationLoader-interface.
      */
     'translation_loaders' => [
-        Spatie\TranslationLoader\TranslationLoaders\Db::class,
+        ActivismeBe\TranslationLoader\TranslationLoaders\Db::class,
     ],
 
     /*
      * This is the model used by the Db Translation loader. You can put any model here
      * that extends Spatie\TranslationLoader\LanguageLine.
      */
-    'model' => Spatie\TranslationLoader\LanguageLine::class,
+    'model' => ActivismeBe\TranslationLoader\LanguageLine::class,
 ];
 ```
 
@@ -87,7 +87,7 @@ return [
 You can create a translation in the database by creating and saving an instance of the `Spatie\TranslationLoader\LanguageLine`-model:
 
 ```php
-use Spatie\TranslationLoader\LanguageLine;
+use ActivismeBe\TranslationLoader\LanguageLine;
 
 LanguageLine::create([
    'group' => 'validation',

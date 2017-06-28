@@ -27,6 +27,10 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider
                 __DIR__.'/../config/laravel-translation-loader.php' => config_path('laravel-translation-loader.php'),
             ], 'config');
 
+            $this->publishes([__DIR__ . '/../database/seeds/system/nl' => database_path('seeds')], 'lang-nl');
+            $this->publishes([__DIR__ . '/../database/seeds/system/fr' => database_path('seeds')], 'lang-fr'); 
+            $this->publishes([__DIR__ . '/../database/seeds/system/en' => database_path('seeds')], 'lang-en');
+
             if (! class_exists('CreateLanguageLinesTable')) {
                 $timestamp = date('Y_m_d_His', time());
 
