@@ -4,6 +4,13 @@ namespace Spatie\TranslationLoader\Test;
 
 class TransTest extends TestCase
 {
+    protected $nested = [
+        'bool' => [
+            1 => 'Yes',
+            0 => 'No',
+        ],
+    ];
+
     public function setUp()
     {
         parent::setUp();
@@ -29,5 +36,37 @@ class TransTest extends TestCase
         $this->createLanguageLine('file', 'key', ['en' => 'en value from db']);
 
         $this->assertEquals('en value from db', trans('file.key'));
+    }
+
+    /** @test */
+    public function it_will_return_array_if_the_given_translation_is_nested()
+    {
+        foreach (array_dot($this->nested) as $key => $text) {
+            $this->createLanguageLine('nested', $key, ['en' => $text]);
+        }
+
+        $this->assertEquals($this->nested['bool'], trans('nested.bool'), '$canonicalize = true', $delta = 0.0, $maxDepth = 10, $canonicalize = true);
+    }
+
+    /** @test */
+    public function it_will_return_the_translation_string_if_max_nested_level_is_reached()
+    {
+        foreach (array_dot($this->nested) as $key => $text) {
+            $this->createLanguageLine('nested', $key, ['en' => $text]);
+        }
+
+        $this->assertEquals($this->nested['bool'][1], trans('nested.bool.1'));
+    }
+
+    /** @test */
+    public function it_will_return_the_dotted_translation_key_if_no_translation_found()
+    {
+        $notFoundKey = 'nested.bool.3';
+
+        foreach (array_dot($this->nested) as $key => $text) {
+            $this->createLanguageLine('nested', $key, ['en' => $text]);
+        }
+
+        $this->assertEquals($notFoundKey, trans($notFoundKey));
     }
 }

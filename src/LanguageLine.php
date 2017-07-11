@@ -33,14 +33,11 @@ class LanguageLine extends Model
             return static::query()
                 ->where('group', $group)
                 ->get()
-                ->map(function (LanguageLine $languageLine) use ($locale) {
-                    return [
-                        'key' => $languageLine->key,
-                        'text' => $languageLine->getTranslation($locale),
-                    ];
-                })
-                ->pluck('text', 'key')
-                ->toArray();
+                ->reduce(function ($lines, LanguageLine $languageLine) use ($locale) {
+                    array_set($lines, $languageLine->key, $languageLine->getTranslation($locale));
+
+                    return $lines;
+                }) ?? [];
         });
     }
 
